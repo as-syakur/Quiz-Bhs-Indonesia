@@ -4,205 +4,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Ujian Online</title>
-  <meta name="description" content="Halaman akses Ujian Online.">
+  <meta name="robots" content="noindex">
+  <title>Membuka Ujian Online...</title>
 
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    body {
       margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
       font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      background: #f1f5f9;
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
       color: #0f172a;
     }
 
-    .topbar {
-      min-height: 58px;
-      padding: 12px 20px;
-      background: #1d4ed8;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .open-btn {
-      display: inline-block;
-      padding: 10px 16px;
-      background: #ffffff;
-      color: #1d4ed8;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .open-btn:hover {
-      background: #dbeafe;
-    }
-
-    #appFrame {
-      display: block;
+    .card {
       width: 100%;
-      height: calc(100vh - 58px);
-      height: calc(100dvh - 58px);
-      border: none;
-      background: #ffffff;
-    }
-
-    #fallbackMsg {
-      display: none;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 28px 22px;
+      max-width: 420px;
+      padding: 35px 25px;
       text-align: center;
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
     }
 
-    #fallbackMsg h2 {
-      margin-bottom: 12px;
-      font-size: 22px;
+    .icon {
+      font-size: 55px;
+      margin-bottom: 15px;
     }
 
-    #fallbackMsg p {
-      margin-bottom: 22px;
-      color: #475569;
-      line-height: 1.6;
+    h1 {
+      margin: 0 0 12px;
+      color: #1d4ed8;
+      font-size: 25px;
+    }
+
+    p {
+      color: #64748b;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .loader {
+      width: 38px;
+      height: 38px;
+      margin: 22px auto;
+      border: 4px solid #dbeafe;
+      border-top-color: #2563eb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .btn {
       display: inline-block;
-      padding: 13px 22px;
-      background: #0f766e;
-      color: white;
-      text-decoration: none;
+      margin-top: 12px;
+      padding: 14px 24px;
       border-radius: 10px;
-      font-size: 15px;
+      background: #1d4ed8;
+      color: white;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .btn:hover {
-      background: #115e59;
+      background: #1e40af;
     }
 
-    .loading {
-      padding: 20px;
-      text-align: center;
-      color: #64748b;
-    }
-
-    @media (max-width: 480px) {
-      .topbar {
-        padding: 10px 12px;
-      }
-
-      .brand {
-        font-size: 15px;
-      }
-
-      .open-btn {
-        padding: 9px 11px;
-        font-size: 12px;
-      }
-
-      #fallbackMsg {
-        margin: 24px 14px;
-      }
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #94a3b8;
     }
   </style>
 </head>
 
 <body>
+  <main class="card">
+    <div class="icon">📘</div>
 
-  <header class="topbar">
-    <div class="brand">📘 Ujian Online</div>
+    <h1>Ujian Online</h1>
 
-    <a
-      class="open-btn"
-      id="openApp"
-      href="#"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Buka Aplikasi ↗
+    <p id="status">
+      Anda akan diarahkan ke halaman ujian.
+      Mohon tunggu sebentar...
+    </p>
+
+    <div class="loader" id="loader"></div>
+
+    <a class="btn" id="openApp" href="#">
+      Buka Ujian Sekarang →
     </a>
-  </header>
 
-  <main>
-    <div class="loading" id="loadingMsg">
-      Memuat aplikasi ujian...
-    </div>
-
-    <iframe
-      id="appFrame"
-      title="Aplikasi Ujian Online"
-      allow="clipboard-write; fullscreen"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin"
-    ></iframe>
-
-    <section id="fallbackMsg">
-      <h2>Aplikasi tidak tampil?</h2>
-      <p>
-        Aplikasi mungkin tidak mengizinkan tampilan di dalam halaman ini.
-        Silakan buka aplikasi ujian langsung melalui tombol di bawah.
-      </p>
-
-      <a
-        class="btn"
-        id="fallbackLink"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        🚀 Buka Ujian Online
-      </a>
-    </section>
+    <p class="note">
+      Jika halaman tidak terbuka otomatis, tekan tombol di atas.
+    </p>
   </main>
 
   <script>
-    // Ganti URL ini jika alamat deployment Apps Script berubah.
+    // URL aplikasi Google Apps Script
     const APP_URL =
       "https://script.google.com/macros/s/AKfycbzK10OS2dhbI7s2B_mDyoLltAI9onBCDWTkgpnwFvO7ISrvshSy8mtIUtIrEbufK4O-9A/exec?page=play&id=3fd5849f6954";
 
-    const frame = document.getElementById("appFrame");
-    const loading = document.getElementById("loadingMsg");
-    const fallback = document.getElementById("fallbackMsg");
-
     document.getElementById("openApp").href = APP_URL;
-    document.getElementById("fallbackLink").href = APP_URL;
 
-    frame.src = APP_URL;
-
-    // Sembunyikan indikator pemuatan setelah iframe memberi respons.
-    frame.addEventListener("load", function () {
-      loading.style.display = "none";
-    });
-
-    // Catatan: event load tidak memastikan aplikasi berhasil ditampilkan.
-    // Jika Google memblokir iframe, gunakan tombol Buka Aplikasi.
-    // Tombol tersebut tetap tersedia di bagian atas halaman.
+    // Alihkan langsung ke aplikasi ujian
+    window.location.replace(APP_URL);
   </script>
-
 </body>
 </html>
