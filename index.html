@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App</title>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  #appFrame {
+    border: none;
+    width: 100%;
+    height: 100vh;
+    display: block;
+  }
+
+  /* Pesan jika iframe gagal dimuat (mis. diblokir oleh Google) */
+  #fallbackMsg {
+    display: none;
+    padding: 30px;
+    text-align: center;
+    color: #444;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #0f766e;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .btn:hover { background: #115e59; }
+</style>
+</head>
+<body>
+
+<!-- GANTI LINK APPS SCRIPT DI VARIABEL APP_URL DI BAWAH -->
+<iframe id="appFrame" allow="clipboard-write"></iframe>
+
+<div id="fallbackMsg">
+  Aplikasi tidak bisa ditampilkan langsung di halaman ini.<br><br>
+  <a class="btn" id="fallbackLink" target="_blank">🚀 Buka di tab baru</a>
+</div>
+
+<script>
+  // Satu-satunya tempat yang perlu diganti saat link Apps Script berubah
+  const APP_URL = "https://script.google.com/macros/s/AKfycbzK10OS2dhbI7s2B_mDyoLltAI9onBCDWTkgpnwFvO7ISrvshSy8mtIUtIrEbufK4O-9A/exec?page=play&id=3fd5849f6954";
+
+  const frame = document.getElementById('appFrame');
+  frame.src = APP_URL;
+  document.getElementById('fallbackLink').href = APP_URL;
+</script>
+
+</body>
+</html>
